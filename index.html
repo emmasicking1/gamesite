@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Arcade Alley — Game Hub</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-badge" aria-hidden="true">🎮</span>
+        <div>
+          <h1>Arcade Alley</h1>
+          <p class="subtitle">A tiny game hub you can expand.</p>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="#home">Home</a>
+        <a href="#games">Games</a>
+        <a href="#leaderboard">Leaderboard</a>
+        <a href="#about">About</a>
+      </nav>
+
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">
+        ☰
+      </button>
+    </div>
+
+    <div class="mobile-nav" id="mobileNav">
+      <a href="#home">Home</a>
+      <a href="#games">Games</a>
+      <a href="#leaderboard">Leaderboard</a>
+      <a href="#about">About</a>
+    </div>
+  </header>
+
+  <main class="container" id="home">
+    <section class="hero card">
+      <div class="hero-left">
+        <h2>Pick a game, rack up wins, and flex on your own leaderboard 😌</h2>
+        <p>
+          This is a starter “game hub” template: add more games, swap art, or turn it into a full arcade.
+          Your leaderboard is saved in your browser (localStorage).
+        </p>
+        <div class="hero-actions">
+          <a class="btn" href="#games">Play now</a>
+          <button class="btn btn-ghost" id="resetAllBtn" type="button">Reset Data</button>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-label">Tic-Tac-Toe</div>
+            <div class="stat-value" id="statTTT">0 wins</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Guess Game</div>
+            <div class="stat-value" id="statGuess">0 wins</div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Total Points</div>
+            <div class="stat-value" id="statPoints">0</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-panel">
+          <div class="hero-panel-top">
+            <h3>Featured</h3>
+            <p class="muted">Tic-Tac-Toe (vs. a basic AI)</p>
+          </div>
+          <div class="hero-panel-bottom">
+            <div class="pill">Fast</div>
+            <div class="pill">Simple</div>
+            <div class="pill">Expandable</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="games" class="grid">
+      <!-- Tic Tac Toe -->
+      <article class="card">
+        <header class="card-header">
+          <div>
+            <h3>Tic-Tac-Toe</h3>
+            <p class="muted">You are <strong>X</strong>. Beat the AI (<strong>O</strong>).</p>
+          </div>
+          <div class="chip" id="tttStatus">Your turn</div>
+        </header>
+
+        <div class="ttt">
+          <div class="ttt-board" id="tttBoard" aria-label="Tic Tac Toe board"></div>
+
+          <div class="ttt-controls">
+            <button class="btn btn-small" id="tttNewGameBtn" type="button">New Game</button>
+            <button class="btn btn-small btn-ghost" id="tttClearBtn" type="button">Clear Board</button>
+          </div>
+
+          <div class="muted small">
+            Tip: the AI is beatable — but not *embarrassingly* beatable.
+          </div>
+        </div>
+      </article>
+
+      <!-- Guessing game -->
+      <article class="card">
+        <header class="card-header">
+          <div>
+            <h3>Daily Mini: Guess the Number</h3>
+            <p class="muted">Guess a number from <strong>1</strong> to <strong>20</strong>.</p>
+          </div>
+          <div class="chip" id="guessStatus">Ready</div>
+        </header>
+
+        <div class="guess">
+          <div class="guess-row">
+            <input id="guessInput" class="input" type="number" min="1" max="20" placeholder="1–20" />
+            <button id="guessBtn" class="btn" type="button">Guess</button>
+          </div>
+
+          <div class="guess-actions">
+            <button id="guessNewBtn" class="btn btn-small btn-ghost" type="button">New Secret</button>
+            <div class="muted small" id="guessHint">You have 6 tries.</div>
+          </div>
+
+          <div class="guess-log" id="guessLog" aria-live="polite"></div>
+        </div>
+      </article>
+    </section>
+
+    <section id="leaderboard" class="card">
+      <header class="card-header">
+        <div>
+          <h3>Leaderboard</h3>
+          <p class="muted">Stored locally in your browser.</p>
+        </div>
+        <div class="leader-actions">
+          <button class="btn btn-small" id="saveNameBtn" type="button">Save Name</button>
+          <button class="btn btn-small btn-ghost" id="clearScoresBtn" type="button">Clear Scores</button>
+        </div>
+      </header>
+
+      <div class="leader">
+        <div class="leader-left">
+          <label class="label" for="playerName">Player name</label>
+          <input id="playerName" class="input" type="text" maxlength="18" placeholder="e.g., Emma" />
+          <p class="muted small">
+            Your points increase when you win games. Add more games later and award points too.
+          </p>
+
+          <div class="points-box">
+            <div>
+              <div class="muted small">Current Points</div>
+              <div class="points" id="pointsNow">0</div>
+            </div>
+            <button class="btn btn-small" id="addBonusBtn" type="button">+5 Bonus (demo)</button>
+          </div>
+        </div>
+
+        <div class="leader-right">
+          <div class="table-wrap">
+            <table class="table" aria-label="Leaderboard table">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Name</th>
+                  <th>Points</th>
+                  <th>Updated</th>
+                </tr>
+              </thead>
+              <tbody id="leaderTableBody"></tbody>
+            </table>
+          </div>
+          <p class="muted small">Top 8 saved entries.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="card">
+      <header class="card-header">
+        <div>
+          <h3>About this site</h3>
+          <p class="muted">Made with plain HTML/CSS/JS — perfect for GitHub Pages.</p>
+        </div>
+      </header>
+
+      <div class="about">
+        <ul>
+          <li>Sticky header + responsive nav</li>
+          <li>Two mini-games (easy to expand)</li>
+          <li>Leaderboard + stats stored in localStorage</li>
+          <li>No libraries, no build steps</li>
+        </ul>
+        <p class="muted small">
+          Want to add more games? Copy the pattern: build a card, write logic in <code>script.js</code>,
+          and award points via <code>awardPoints()</code>.
+        </p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>
+        © <span id="year"></span> Arcade Alley • Built for GitHub Pages
+      </p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
